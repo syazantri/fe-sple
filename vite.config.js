@@ -35,14 +35,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     envDir: process.cwd(),
-    build: {
-      outDir: process.cwd() + "/build",
-      emptyOutDir: true,
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
-      sourcemap: true,
-    },
+    build: {},
     preview: {
       port: env.VITE_PORT ?? 3000,
     },
