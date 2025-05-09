@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import svgr from "vite-plugin-svgr";
 import checker from "vite-plugin-checker";
+import path from "path";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
@@ -9,14 +10,11 @@ export default defineConfig(({ mode }) => {
   return {
     root: "src",
     base: "/",
-    plugins: [
-      react(),
-      svgr(),
-    ],
-    publicDir: process.cwd() + "/public",
+    plugins: [react(), svgr()],
+    publicDir: path.resolve(__dirname, "public"),
     resolve: {
       alias: {
-        "@": process.cwd() + "/src",
+        "@": path.resolve(__dirname, "src"),
       },
     },
     server: {
@@ -35,7 +33,10 @@ export default defineConfig(({ mode }) => {
       },
     },
     envDir: process.cwd(),
-    build: {},
+    build: {
+      outDir: path.resolve(__dirname, "dist"),
+      emptyOutDir: true,
+    },
     preview: {
       port: env.VITE_PORT ?? 3000,
     },
